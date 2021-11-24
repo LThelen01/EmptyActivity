@@ -1,13 +1,14 @@
 package com.example.myapplication;
 
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  SensorEventListener {
 
     private TextView tvX;
     private TextView tvY;
@@ -15,38 +16,20 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorManager sm;
     private Sensor sensorAcc;
-    private Object SensorEvent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
-        public void onSensorChanged(SensorEvent Object event;
-        event)    {
-
-            tvX.setText("X:"+event.values[0]);
-            tvY.setText("Y:"+event.values[1]);
-            tvZ.setText("Z:"+event.values[2]);
-
-        }
-        public void onAccuracyChanged(Sensor sensor int accuracy) {
-
-            //do nothing here
-        }
-
-
-
-
-
         //TextView-Objekte referenzieren
 
-        tvX = findViewById(R.id.TextViewX);
-        tvY = findViewById(R.id.TextViewY);
-        tvZ = findViewById(R.id.TextViewZ);
+        tvX = findViewById(R.id.tvX);
+        tvY = findViewById(R.id.tvY);
+        tvZ = findViewById(R.id.tvZ);
 
         //sensormanager
 
@@ -58,10 +41,18 @@ public class MainActivity extends AppCompatActivity {
         //register sensor listener
         sm.registerListener((SensorEventListener) this, sensorAcc, sm.SENSOR_DELAY_NORMAL);
 
-
-
-
-
     }
 
+
+    @Override
+    public void onSensorChanged(android.hardware.SensorEvent event) {
+        tvX.setText("X:"+event.values[0]);
+        tvY.setText("Y:"+event.values[1]);
+        tvZ.setText("Z:"+event.values[2]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }
